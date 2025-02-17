@@ -8,6 +8,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
+using System.Collections.Generic;
 
 namespace IrodalomProjekt
 {
@@ -16,9 +18,25 @@ namespace IrodalomProjekt
     /// </summary>
     public partial class MainWindow : Window
     {
+        private static List<Kerdes> kerdesek = new< Kerdes > ();
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Betoltes_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        
+        private void Kilepes_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
