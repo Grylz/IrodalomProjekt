@@ -28,36 +28,79 @@ namespace IrodalomProjekt
         }
         private void KerdesBetoltes(string fileName)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "TXT fájlok (*.txt)|*.txt";
-            if(openFileDialog.ShowDialog() == true)
+            try
             {
-                try
+                var lines = File.ReadAllLines("valaszok.txt"); 
+
+                if (lines.Length == 0)
                 {
-                    KerdesBetoltes(openFileDialog.FileName);
-                    MessageBox.Show("Sikeres betöltés!", "Információ", MessageBoxButton.OK, MessageBox.Information);
-                    if(kerdesek.Count > 0)
+                    MessageBox.Show("A fájl üres!", "Hiba", MessageBoxButton.OK);
+                    return;
+                }
+
+                kerdesek.Clear(); 
+
+                foreach (var line in lines)
+                {
+                    var parts = line.Split(';');
+
+                    if (parts.Length == 7)
                     {
-                        aktualisIndex = 0;
-                        MutatKerdes(aktualisIndex);
+                        var kerdes = new Kerdes(
+                            parts[1], 
+                            parts[2], 
+                            parts[3], 
+                            parts[4], 
+                            parts[5],
+                            parts[6], 
+                            "" 
+                        );
+                        kerdesek.Add(kerdes);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Hibás formátum a fájlban: " + line, "Hiba", MessageBoxButton.OK);
                     }
                 }
-                catch (Exception ex)
+
+                MessageBox.Show("Sikeres betöltés!", "Információ", MessageBoxButton.OK);
+
+                if (kerdesek.Count > 0)
                 {
-                    MessageBox.Show($"Hiba történt a fájl betöltése közben: {ex.Message}");
+                    aktualisIndex = 0;
+                    MutatKerdes(aktualisIndex);
                 }
             }
-            
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Hiba történt a fájl betöltése közben: {ex.Message}");
+            }
         }
+
+
 
         private void MutatKerdes(int aktualisIndex)
         {
-            throw new NotImplementedException();
+            if (aktualisIndex >= 0 && aktualisIndex < kerdesek.Count)
+            {
+                var kerdes = kerdesek[aktualisIndex];
+
+                tbkKerdesSzovege.Text = kerdes.KerdesSzovege;
+
+                ValaszA.Content = $"A) {kerdes.ValaszA}";
+                ValaszB.Content = $"B) {kerdes.ValaszB}";
+                ValaszC.Content = $"C) {kerdes.ValaszC}";
+                ValaszD.Content = $"D) {kerdes.ValaszD}";
+            }
+            else
+            {
+                MessageBox.Show("Nincs több kérdés!", "Információ", MessageBoxButton.OK);
+            }
         }
 
         private void Betoltes_Click(object sender, RoutedEventArgs e)
         {
-
+            KerdesBetoltes("");
         }
         
         private void Kilepes_Click(object sender, RoutedEventArgs e)
@@ -72,7 +115,15 @@ namespace IrodalomProjekt
 
         private void Elozo_Click(object sender, RoutedEventArgs e)
         {
-
+            if (aktualisIndex > 0)
+            {
+                aktualisIndex--;
+                MutatKerdes(aktualisIndex);
+            }
+            else
+            {
+                MessageBox.Show("Ez már az első kérdés!", "Figyelmeztetés", MessageBoxButton.OK);
+            }
         }
 
         private void Mentes_Click(object sender, RoutedEventArgs e)
@@ -82,7 +133,16 @@ namespace IrodalomProjekt
 
         private void Kovetkezo_Click(object sender, RoutedEventArgs e)
         {
-
+            if (aktualisIndex < kerdesek.Count - 1)
+            {
+                aktualisIndex++;
+                MutatKerdes(aktualisIndex);
+            }
+            else
+            {
+                MessageBox.Show("Ez már az utolsó kérdés!", "Figyelmeztetés", MessageBoxButton.OK);
+            }
         }
     }
 }
+
