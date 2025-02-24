@@ -129,7 +129,29 @@ namespace IrodalomProjekt
 
         private void Mentes_Click(object sender, RoutedEventArgs e)
         {
-
+            if (aktualisIndex < kerdesek.Count)
+            {
+                if (ValaszA.IsChecked == true)
+                {
+                    kerdesek[aktualisIndex].FelhasznaloValasz = "A";
+                }
+                else if (ValaszB.IsChecked == true)
+                {
+                    kerdesek[aktualisIndex].FelhasznaloValasz = "B";
+                }
+                else if (ValaszC.IsChecked == true)
+                {
+                    kerdesek[aktualisIndex].FelhasznaloValasz = "C";
+                }
+                else if (ValaszD.IsChecked == true)
+                {
+                    kerdesek[aktualisIndex].FelhasznaloValasz = "D";
+                }
+                else
+                {
+                    MessageBox.Show("Nincs kiválasztva válasz!", "Figyelmeztetés", MessageBoxButton.OK);
+                }
+            }
         }
 
         private void Kovetkezo_Click(object sender, RoutedEventArgs e)
