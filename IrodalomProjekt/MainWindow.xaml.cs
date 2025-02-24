@@ -45,7 +45,7 @@ namespace IrodalomProjekt
                 {
                     var parts = line.Split(';');
 
-                    if (parts.Length == 7)
+                    if (parts.Length == 6)
                     {
                         var kerdes = new Kerdes(
                             parts[1], 
@@ -53,8 +53,7 @@ namespace IrodalomProjekt
                             parts[3], 
                             parts[4], 
                             parts[5],
-                            parts[6], 
-                            "" 
+                            parts[5]
                         );
                         kerdesek.Add(kerdes);
                     }
