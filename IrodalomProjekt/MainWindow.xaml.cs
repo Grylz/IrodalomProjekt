@@ -21,7 +21,7 @@ namespace IrodalomProjekt
     public partial class MainWindow : Window
     {
         private static List<Kerdes> kerdesek = new List<Kerdes>();
-        private static int aktualisIndex = 0;
+        public static int aktualisIndex = 0;
         public MainWindow()
         {
             InitializeComponent();
@@ -30,7 +30,8 @@ namespace IrodalomProjekt
         {
             try
             {
-                var lines = File.ReadAllLines("valaszok.txt"); 
+                var lines = File.ReadAllLines("valaszok.txt");
+
 
                 if (lines.Length == 0)
                 {
@@ -105,7 +106,7 @@ namespace IrodalomProjekt
         
         private void Kilepes_Click(object sender, RoutedEventArgs e)
         {
-
+            Environment.Exit(0);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
